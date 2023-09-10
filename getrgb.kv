@@ -1,0 +1,39 @@
+<Container>:
+    rows: 3
+    input: input
+    padding: [0, 60, 0, 0]
+
+    AnchorLayout:
+        size_hint_y: .2
+
+        TextInput:
+            id: input
+            multiline: False
+            text: 'r= g= b='
+            font_size: '30sp'
+            input_type: 'number'
+
+
+    BoxLayout:
+
+
+    FloatLayout:
+        size_hint_y: .85
+
+        Button:
+            text: 'Rand'
+            font_size: '40sp'
+            size_hint: .3, .23
+            pos_hint: {'right': .9, 'top': 1}
+
+            on_release:
+                root.rand_color()
+
+        Button:
+            text: 'Show'
+            font_size: '55sp'
+            size_hint: .5, .3
+            pos_hint: {'center_x': .5, 'center_y': .45}
+
+            on_release:
+                root.get_color()
