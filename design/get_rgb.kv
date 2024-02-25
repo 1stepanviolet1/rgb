@@ -1,0 +1,86 @@
+<ValueLabel@Label>:
+    size_hint_x: .2
+    font_size: '35sp'
+
+
+<ValueInput@TextInput>:
+    multiline: False
+    text: ''
+    font_size: '35sp'
+    input_type: 'number'
+
+
+GridLayout:
+    rows: 3
+    btn_show_color: btn_show_color
+    btn_rand_color: btn_rand_color
+    btn_get_color: btn_get_color
+
+    input_r: input_r
+    input_g: input_g
+    input_b: input_b
+
+    AnchorLayout:
+        size_hint_y: .4
+        anchor_x: 'right'
+        anchor_y: 'top'
+        padding: [10, 20]
+
+        Button:
+            id: btn_show_color
+            size_hint: .2, .5
+            font_size: '20sp'
+            text: 'show\ncolor'
+
+    AnchorLayout:
+        anchor_x: 'center'
+        anchor_y: 'top'
+
+        GridLayout:
+            rows: 3
+            size_hint: .5, .42
+
+            GridLayout:
+                cols: 2
+
+                ValueLabel:
+                    text: 'r: '
+
+                ValueInput:
+                    id: input_r
+
+            GridLayout:
+                cols: 2
+
+                ValueLabel:
+                    text: 'g: '
+
+                ValueInput:
+                    id: input_g
+
+            GridLayout:
+                cols: 2
+
+                ValueLabel:
+                    text: 'b: '
+
+                ValueInput:
+                    id: input_b
+
+
+    FloatLayout:
+        size_hint_y: .85
+
+        Button:
+            id: btn_rand_color
+            text: 'Rand'
+            font_size: '40sp'
+            size_hint: .3, .23
+            pos_hint: {'right': .9, 'top': 1}
+
+        Button:
+            id: btn_get_color
+            text: 'Show'
+            font_size: '55sp'
+            size_hint: .5, .3
+            pos_hint: {'center_x': .5, 'center_y': .45}
