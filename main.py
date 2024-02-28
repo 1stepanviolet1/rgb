@@ -1,7 +1,7 @@
 from kivy.app import App
-from kivy.uix.gridlayout import GridLayout
+from kivy.uix.anchorlayout import AnchorLayout
 from kivy.lang.builder import Builder
-from kivy.properties import OptionProperty, BoundedNumericProperty
+from kivy.properties import OptionProperty
 
 from kivy.core.window import Window
 Window.size = (270, 585)
@@ -9,28 +9,19 @@ Window.size = (270, 585)
 from random import randint
 
 
-class Container(GridLayout):
-    rows = 2
-
-    reduction_coef_of_font_size = BoundedNumericProperty(
-        0.73,
-        min=0,
-        max=1
-    )
-
+class Container(AnchorLayout):
     enabled_color_display = OptionProperty(
         'off', 
         options=['on', 'off']
     )
 
-    rgb_box = Builder.load_file("./design/get_rgb.kv")
-    show_color_box = Builder.load_file("./design/show_color.kv")
-    plug_box = GridLayout()
+    rgb_box = Builder.load_file("./design/rgb.kv")
+    plug_box = AnchorLayout()
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
 
-        self.show_color_box.btn_show_color.bind(
+        self.rgb_box.btn_show_color.bind(
             on_press=self.show_color,
             on_release=self.to_rgb
         )
@@ -43,14 +34,7 @@ class Container(GridLayout):
             on_release=self.get_color
         )
 
-        self.add_widget(self.show_color_box)
         self.add_widget(self.rgb_box)
-
-        for val in 'r', 'g', 'b':
-            getattr(self.rgb_box, f'input_{val}') \
-                .bind(
-                    height=self.set_font_size
-                )
 
     def get_color(self, _=None):
         input_r = self.rgb_box.input_r
@@ -81,8 +65,8 @@ class Container(GridLayout):
         if self.enabled_color_display == 'on':
             return 
         
-        self.remove_widget(self.rgb_box)
-        self.add_widget(self.plug_box)
+        self.rgb_box.remove_widget(self.rgb_box.interactive_box)
+        self.rgb_box.add_widget(self.plug_box)
 
         self.enabled_color_display = 'on'
     
@@ -90,25 +74,16 @@ class Container(GridLayout):
         if self.enabled_color_display == 'off':
             return 
         
-        self.remove_widget(self.plug_box)
-        self.add_widget(self.rgb_box)
+        self.rgb_box.remove_widget(self.plug_box)
+        self.rgb_box.add_widget(self.rgb_box.interactive_box)
 
         self.enabled_color_display = 'off'
-    
-    def set_font_size(self, obj, height):
-        font_size = int(
-            height 
-            * 
-            self.reduction_coef_of_font_size
-        )
-
-        obj.font_size = font_size 
         
 
-class GetRGBApp(App):
+class RGBApp(App):
     def build(self):
         return Container()
 
 
 if __name__ == '__main__':
-    GetRGBApp().run()
+    RGBApp().run()
