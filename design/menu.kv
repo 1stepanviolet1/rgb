@@ -1,6 +1,34 @@
-
-
 GridLayout:
+    rows: 3
+
+    btn_to_pool: btn_to_pool
+    btn_to_rgb: btn_to_rgb
 
     AnchorLayout:
         anchor_x: 'left'
+        anchor_y: 'top'
+        size_hint_y: .4
+
+        Button:
+            id: btn_to_pool
+            text: 'pool'
+            font_size: int(self.height * .5)
+            size_hint: .2, .41
+
+
+    FloatLayout:
+        Label:
+            text: 'RGB'
+            font_size: int(self.height * .85)
+            size_hint: .3, .3
+            pos_hint: {'center_x': .5, 'center_y': .65}
+
+    FloatLayout:
+        size_hint_y: .8
+
+        Button:
+            id: btn_to_rgb
+            text: 'Continue'
+            font_size: int(self.height * .55)
+            size_hint: .7, .35
+            pos_hint: {'center_x': .5, 'center_y': .5}
