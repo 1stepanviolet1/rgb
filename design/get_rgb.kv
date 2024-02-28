@@ -5,12 +5,12 @@
 
 <ValueInput@TextInput>:
     multiline: False
-    text: ''
     font_size: '35sp'
     input_type: 'number'
+    input_filter: 'int'
     strip: True
     halign: 'center'
-    valign: 'middle'
+    padding_y: (self.height - self.line_height) / 2
 
 
 GridLayout:
