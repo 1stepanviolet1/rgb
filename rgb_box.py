@@ -5,6 +5,7 @@ from kivy.properties import OptionProperty
 from kivy.core.window import Window
 
 from options import get_rand_values
+from pool_box import pool_box
 
 
 class RgbBox(AnchorLayout):
@@ -38,13 +39,15 @@ class RgbBox(AnchorLayout):
         input_b = self.box.input_b
 
         try:
-            r = int(input_r.text) / 255
-            g = int(input_g.text) / 255
-            b = int(input_b.text) / 255
+            r = int(input_r.text)
+            g = int(input_g.text)
+            b = int(input_b.text)
         except ValueError:
             r, g, b = 0, 0, 0
+        
+        pool_box.add_values(r, g, b)
 
-        Window.clearcolor = (r, g, b, 1)
+        Window.clearcolor = (r / 255, g / 255, b / 255, 1)
     
     def rand_color(self, _=None):
         r, g, b = get_rand_values()
