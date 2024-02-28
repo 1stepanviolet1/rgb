@@ -11,11 +11,17 @@
     padding_y: (self.height - self.line_height) / 2
 
 
+<OptionLayout@AnchorLayout>:
+    padding: [15, 0, 0, 0]
+    size_hint: .3, .3
+
+
 GridLayout:
     rows: 2
 
     interactive_box: interactive_box
 
+    btn_to_menu: btn_to_menu
     btn_show_color: btn_show_color
     btn_rand_color: btn_rand_color
     btn_get_color: btn_get_color
@@ -27,17 +33,25 @@ GridLayout:
     coef_of_font_size: 0.73
 
 
-    AnchorLayout:
+    FloatLayout:
         size_hint_y: .4
-        anchor_x: 'right'
-        anchor_y: 'top'
-        padding: 20
 
-        Button:
-            id: btn_show_color
-            size_hint: .2, .3
-            text: 'show\ncolor'
-            font_size: int(self.height * .35)
+        OptionLayout:
+            pos_hint: {'left': 0, 'top': 1}
+
+            Button:
+                id: btn_to_menu
+                text: '<--'
+                font_size: int(self.height * root.coef_of_font_size)
+
+        OptionLayout:
+            pos_hint: {'right': 1, 'top': 1}
+
+            Button:
+                id: btn_show_color
+                text: 'show\ncolor'
+                font_size: int(self.height * .35)
+
 
     GridLayout:
         id: interactive_box

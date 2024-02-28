@@ -10,6 +10,8 @@ from random import randint
 
 
 class Container(AnchorLayout):
+    padding = [15, 15, 15, 15]
+    
     enabled_color_display = OptionProperty(
         'off', 
         options=['on', 'off']
