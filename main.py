@@ -13,7 +13,7 @@ class Container(GridLayout):
     rows = 2
 
     reduction_coef_of_font_size = BoundedNumericProperty(
-        0.7,
+        0.73,
         min=0,
         max=1
     )
