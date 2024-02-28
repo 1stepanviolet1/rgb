@@ -1,6 +1,7 @@
 from kivy.app import App
 from kivy.uix.gridlayout import GridLayout
 from kivy.lang.builder import Builder
+from kivy.properties import OptionProperty
 
 from kivy.core.window import Window
 Window.size = (270, 585)
@@ -10,6 +11,11 @@ from random import randint
 
 class Container(GridLayout):
     rows = 2
+
+    enabled_color_display = OptionProperty(
+        'off', 
+        options=['on', 'off']
+    )
 
     rgb_box = Builder.load_file("./design/get_rgb.kv")
     show_color_box = Builder.load_file("./design/show_color.kv")
@@ -40,9 +46,9 @@ class Container(GridLayout):
         input_b = self.rgb_box.input_b
 
         try:
-            r = int(input_r.text.strip()) / 255
-            g = int(input_g.text.strip()) / 255
-            b = int(input_b.text.strip()) / 255
+            r = int(input_r.text) / 255
+            g = int(input_g.text) / 255
+            b = int(input_b.text) / 255
         except ValueError:
             r, g, b = 0, 0, 0
 
@@ -60,12 +66,22 @@ class Container(GridLayout):
         self.get_color()
     
     def show_color(self, _=None):
+        if self.enabled_color_display == 'on':
+            return 
+        
         self.remove_widget(self.rgb_box)
         self.add_widget(self.plug_box)
+
+        self.enabled_color_display = 'on'
     
     def to_rgb(self, _=None):
+        if self.enabled_color_display == 'off':
+            return 
+        
         self.remove_widget(self.plug_box)
         self.add_widget(self.rgb_box)
+
+        self.enabled_color_display = 'off'
 
 
 class GetRGBApp(App):
