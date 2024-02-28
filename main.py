@@ -1,7 +1,7 @@
 from kivy.app import App
 from kivy.uix.gridlayout import GridLayout
 from kivy.lang.builder import Builder
-from kivy.properties import OptionProperty
+from kivy.properties import OptionProperty, BoundedNumericProperty
 
 from kivy.core.window import Window
 Window.size = (270, 585)
@@ -11,6 +11,12 @@ from random import randint
 
 class Container(GridLayout):
     rows = 2
+
+    reduction_coef_of_font_size = BoundedNumericProperty(
+        0.85,
+        min=0,
+        max=1
+    )
 
     enabled_color_display = OptionProperty(
         'off', 
@@ -39,6 +45,12 @@ class Container(GridLayout):
 
         self.add_widget(self.show_color_box)
         self.add_widget(self.rgb_box)
+
+        for val in 'r', 'g', 'b':
+            getattr(self.rgb_box, f'input_{val}') \
+                .bind(
+                    height=self.set_font_size
+                )
 
     def get_color(self, _=None):
         input_r = self.rgb_box.input_r
@@ -82,7 +94,16 @@ class Container(GridLayout):
         self.add_widget(self.rgb_box)
 
         self.enabled_color_display = 'off'
+    
+    def set_font_size(self, obj, height):
+        font_size = int(
+            height 
+            * 
+            self.reduction_coef_of_font_size
+        )
 
+        obj.font_size = font_size 
+        
 
 class GetRGBApp(App):
     def build(self):
