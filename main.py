@@ -6,7 +6,7 @@ from kivy.uix.anchorlayout import AnchorLayout
 
 from kivy.core.window import Window
 Window.clearcolor = (.07, .07, .07, 1)
-#Window.size = (270, 585)
+Window.size = (270, 585)
 
 from menu_box import MenuBox
 from rgb_box import RgbBox
